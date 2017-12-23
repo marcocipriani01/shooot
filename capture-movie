@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "Capturing $1 seconds movie..."
+gphoto2 --set-config movie=1 --wait-event=$1s --set-config movie=0 --wait-event-and-download=2s

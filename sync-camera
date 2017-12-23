@@ -1,0 +1,9 @@
+#!/bin/bash
+if [ ! -z $1 ]
+    then
+        mkdir $1 2> /dev/null
+        cd $1 2> /dev/null
+fi
+notify-send "Camera sync" "Starting..."
+gphoto2 --get-all-files --skip-existing
+notify-send "Camera sync" "Finished."
