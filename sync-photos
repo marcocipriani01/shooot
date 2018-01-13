@@ -1,0 +1,6 @@
+#!/bin/bash
+if [ ! -z $1 ]; then
+    mkdir $1 2> /dev/null
+    cd $1
+fi
+gphoto2 --get-all-files --skip-existing

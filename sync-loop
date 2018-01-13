@@ -1,0 +1,24 @@
+#!/bin/bash
+trap close INT
+
+function close() {
+    echo "Interrupted."
+    exit 0
+}
+
+interval=$1
+if [ -z $interval ]; then
+    interval=2
+fi
+
+if [ ! -z $2 ]; then
+    mkdir $2 2> /dev/null
+    cd $2
+fi
+
+echo "Loop download with interval $interval seconds."
+echo "Starting... press Ctrl-C to stop."
+while true; do
+	gphoto2 --get-all-files --skip-existing
+	sleep $interval
+done

@@ -1,0 +1,8 @@
+#!/bin/bash
+echo "Converting..."
+find . -type f -iname "*.nef" -o -iname "*.cr2" -o -iname "*.crw" -o -iname "*.pef" -o -iname "*.arw" -o -iname "*.sr2" -o -iname "*.raw" -o -iname "*.dng" | xargs -L1 ufraw-batch --out-type=jpg
+echo "Done."
+read -p "Do you want to remove the original raw images? (y/n)? " CONT
+if [ "$CONT" = "y" ]; then
+    find . -type f -iname "*.nef" -o -iname "*.cr2" -o -iname "*.crw" -o -iname "*.pef" -o -iname "*.arw" -o -iname "*.sr2" -o -iname "*.raw" -o -iname "*.dng" | xargs -L1 rm
+fi
