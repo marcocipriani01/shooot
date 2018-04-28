@@ -1,0 +1,32 @@
+#!/bin/bash
+trap close INT
+
+function close() {
+    echo "Interrupted."
+    exit 0
+}
+
+this="$(realpath $(dirname "$0"))"
+folder="$1"
+if [ -z "$folder" ]; then
+    read -e -p "Folder: " folder
+fi
+cd "$folder"
+interval="$2"
+if [ -z "$interval" ]; then
+    read -p "Interval (seconds): " interval
+fi
+count="$3"
+if [ -z "$count" ]; then
+    read -p "Number of photos: " count
+fi
+gphoto2 --capture-image-and-download --folder=$folder --force-overwrite --interval=${interval}s --frames=$count
+
+if [ -n "$(find . -type f -iname "*.nef" -o -iname "*.cr2" -o -iname "*.crw" -o -iname "*.pef" -o -iname "*.arw" -o -iname "*.sr2" -o -iname "*.raw" -o -iname "*.dng")" ]; then
+    if [ "$(python2 ${this}/bin/get-filetype.py -c)" != "NEF+Fine" ]; then
+        read -p "Convert RAW images (y/n)?" convert
+        if [ "$convert" = "y" ]; then
+            ${this}/convert-all-raw
+        fi
+    fi
+fi

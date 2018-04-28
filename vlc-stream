@@ -1,2 +1,5 @@
 #!/bin/bash
+if [ -z "$(which vlc)" ]; then
+    sudo apt-get install vlc
+fi
 gphoto2 --capture-movie --stdout | vlc -

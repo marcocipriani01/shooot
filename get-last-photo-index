@@ -1,0 +1,5 @@
+#!/bin/bash
+out="$(gphoto2 --list-files | tail -1  | grep "#")"
+if [ -n "$out" ]; then
+    echo "$out" | grep -o -E '[0-9]+' | head -1 | sed -e 's/^0\+//'
+fi

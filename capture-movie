@@ -1,9 +1,10 @@
 #!/bin/bash
-opt=$1
-if [ -z $opt ]; then
-    cd bin
-    read -e -p "Please specify the movie lenght in seconds: " opt
-    cd ..
+lenght="$1"
+if [ -z "$lenght" ]; then
+    read -p "Lenght in seconds: " lenght
 fi
-echo "Capturing $opt seconds movie..."
-gphoto2 --set-config movie=1 --wait-event=$(echo $opt)s --set-config movie=0 --wait-event-and-download=2s
+echo "Capturing..."
+gphoto2 --set-config movie=1 "--wait-event=${lenght}s" --set-config movie=0
+echo "Downloading..."
+sleep 1
+$(dirname "$0")/get-last-photo

@@ -16,8 +16,8 @@ if [ ! -z $2 ]; then
     cd $2
 fi
 
-echo "Loop download with interval $interval seconds."
-echo "Starting... press Ctrl-C to stop."
+echo "Looped download, interval ${interval}s"
+echo "Press Ctrl-C to stop."
 while true; do
 	gphoto2 --get-all-files --skip-existing
 	sleep $interval

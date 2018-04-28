@@ -1,0 +1,32 @@
+#!/bin/bash
+trap close INT
+
+function close() {
+    echo "Interrupted."
+    exit 0
+}
+
+if [ -z "$(which ufraw)" ]; then
+    sudo apt-get install ufraw
+fi
+format="$1"
+if [ -z "$format" ]; then
+    read -p "File output format (png|jpeg|jpg|fits|ppm|tif|tiff): " format
+fi
+multi="$2"
+if [ -z "$multi" ]; then
+    read -p "Enable multi-thread conversion (y/n)?" multi
+fi
+if [ "$multi" = "n" ]; then
+    proc=1
+else
+    proc="$(nproc)"
+fi
+find . -type f -iname "*.nef" -o -iname "*.cr2" -o -iname "*.crw" -o -iname "*.pef" -o -iname "*.arw" -o -iname "*.sr2" -o -iname "*.raw" -o -iname "*.dng" | xargs --max-procs=$proc -L1 ufraw-batch --overwrite --compression=100 --out-type=$format
+delete="$3"
+if [ -z "$delete" ]; then
+    read -p "Delete RAW images? (y/n)? " delete
+fi
+if [ "$delete" = "y" ]; then
+    find . -type f -iname "*.nef" -o -iname "*.cr2" -o -iname "*.crw" -o -iname "*.pef" -o -iname "*.arw" -o -iname "*.sr2" -o -iname "*.raw" -o -iname "*.dng" | xargs -L1 rm
+fi

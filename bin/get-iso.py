@@ -10,7 +10,7 @@ if sys.argv[1] == "-a":
             print "N", line.replace("Current: ", "")
             
         elif b'Choice:' in line:
-            print "F", line.replace("Choice:", "").split(" ")[2]
+            print "P", line.replace("Choice:", "").split(" ")[2]
             
 elif sys.argv[1] == "-c":
     for line in out.splitlines():
@@ -24,9 +24,9 @@ elif sys.argv[1] == "-p":
             print  line.replace("Choice:", "").split(" ")[2]
             
 else:
-    print "Usage: \"python2.7 iso-extractor.py OPTION\""
+    print "Usage: \"get-iso OPTION\""
     print "Options:"
-    print " -a: print all the ISO values, both current (marked with N) and possible (marked with F)"
+    print " -a: print all the ISO values, both current (marked with N) and possible (marked with P)"
     print " -c: print the current ISO value"
-    print " -p: print the available ISO values"
+    print " -p: print all the available ISO values"
     sys.exit(3)
