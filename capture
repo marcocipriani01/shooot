@@ -1,0 +1,15 @@
+#!/bin/bash
+trap close INT
+
+function close() {
+    echo "Interrupted."
+    exit 0
+}
+
+this="$(realpath $(dirname "$0"))"
+folder="$1"
+if [ -z "$folder" ]; then
+    read -e -p "Folder: " folder
+fi
+cd "$folder"
+gphoto2 --capture-image-and-download --keep --force-overwrite --quiet

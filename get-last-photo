@@ -1,12 +1,18 @@
 #!/bin/bash
-out="$($(dirname "$0")/get-last-photo-index)"
+this="$(realpath $(dirname "$0"))"
+folder="$1"
+if [ -z "$folder" ]; then
+    read -e -p "Folder: " folder
+fi
+cd "$folder"
+out="$(${this}/misc/get-last-photo-index)"
 if [ -n "$out" ]; then
-    gphoto2 --force-overwrite --get-file=$out
-    if [ -n "$(find . -type f -iname "*.nef" -o -iname "*.cr2" -o -iname "*.crw" -o -iname "*.pef" -o -iname "*.arw" -o -iname "*.sr2" -o -iname "*.raw" -o -iname "*.dng")" ]; then
-        if [ "$(python2 $(dirname "$0")/bin/get-filetype.py -c)" != "NEF+Fine" ]; then
+    gphoto2 --force-overwrite --keep --get-file=$out --quiet
+    if [ -n "$(find . -maxdepth 1 -type f -iname "*.nef" -o -iname "*.cr2" -o -iname "*.crw" -o -iname "*.pef" -o -iname "*.arw" -o -iname "*.sr2" -o -iname "*.raw" -o -iname "*.dng")" ]; then
+        if [ "$(python2 ${this}/py/get-filetype.py -c)" != "NEF+Fine" ]; then
             read -p "Convert RAW images (y/n)?" convert
             if [ "$convert" = "y" ]; then
-                $(dirname "$0")/convert-all-raw
+                ${this}/raw/convert-all-raw
             fi
         fi
     fi

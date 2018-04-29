@@ -7,20 +7,33 @@ function close() {
 }
 
 this="$(realpath $(dirname "$0"))"
-folder="$1"
+duration="$1"
+if [ -z "$duration" ]; then
+    read -p "Shutter speed (bulb mode, seconds): " duration
+fi
+$this/set/iso "$2"
+$this/set/aperture "$3"
+$this/set/auto-dark "$4"
+folder="$5"
 if [ -z "$folder" ]; then
     read -e -p "Folder: " folder
 fi
 cd "$folder"
-interval="$2"
-if [ -z "$interval" ]; then
-    read -p "Interval (seconds): " interval
-fi
-count="$3"
+count="$6"
 if [ -z "$count" ]; then
     read -p "Number of photos: " count
 fi
-gphoto2 --capture-image-and-download --keep --force-overwrite --interval=${interval}s --frames=$count --quiet
+interval="$7"
+if [ -z "$interval" ]; then
+    read -p "Interval (seconds): " interval
+fi
+delay=2
+for run in {1..${count}}; do
+    gphoto2 --set-config shutterspeed=Bulb --set-config capturetarget=1 --set-config bulb=1 --wait-event=${duration}s --set-config bulb=0 --quiet
+    sleep $delay
+    $this/get-last-photo .
+    sleep $((interval-delay))
+done
 if [ -n "$(find . -maxdepth 1 -type f -iname "*.nef" -o -iname "*.cr2" -o -iname "*.crw" -o -iname "*.pef" -o -iname "*.arw" -o -iname "*.sr2" -o -iname "*.raw" -o -iname "*.dng")" ]; then
     if [ "$(python2 ${this}/py/get-filetype.py -c)" != "NEF+Fine" ]; then
         read -p "Convert RAW images (y/n)?" convert

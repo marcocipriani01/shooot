@@ -1,0 +1,8 @@
+#!/bin/bash
+value="$1"
+if [ -z "$value" ]; then
+    read -p "Enable or disable automatic dark frame (1/0/empty)? " value
+fi
+if [ -n "$value" ]; then
+    gphoto2 --set-config d06b="$value" --quiet
+fi

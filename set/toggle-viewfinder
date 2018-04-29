@@ -1,0 +1,2 @@
+#!/bin/bash
+gphoto2 --set-config viewfinder=1 --quiet

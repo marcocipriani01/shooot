@@ -1,0 +1,9 @@
+#!/bin/bash
+opt="$1"
+if [ -z "$opt" ]; then
+    echo "1. Print all the numbers (N: current, P: possible)"
+    echo "2. Current f/ number"
+    echo "3. All the available f/ numbers"
+    read -p "Option: " opt
+fi
+python2 $(dirname "$0")/../py/get-aperture.py "$opt"

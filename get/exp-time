@@ -1,0 +1,9 @@
+#!/bin/bash
+opt="$1"
+if [ -z "$opt" ]; then
+    echo "1. Print all the exposure times (N: current, P: possible)"
+    echo "2. Current shutter speed"
+    echo "3. All the available shutter speeds"
+    read -p "Option: " opt
+fi
+python2 $(dirname "$0")/../py/get-exp-time.py "$opt"

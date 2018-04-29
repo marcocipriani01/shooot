@@ -1,0 +1,2 @@
+#!/bin/bash
+gphoto2 --get-config=focallength | grep Current | sed "s/Current: //g"

@@ -1,6 +1,0 @@
-#!/bin/bash
-opt="$1"
-if [ -z "$opt" ]; then
-    read -p "Enable (1) or disable (0)? " opt
-fi
-gphoto2 --set-config d06b="$opt"

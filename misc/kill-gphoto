@@ -1,0 +1,2 @@
+#!/bin/bash
+killall gvfsd-gphoto2 gphoto2 2> /dev/null

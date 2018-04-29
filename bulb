@@ -1,0 +1,21 @@
+#!/bin/bash
+trap close INT
+
+function close() {
+    echo "Interrupted."
+    exit 0
+}
+
+this="$(realpath $(dirname "$0"))"
+folder="$1"
+if [ -z "$folder" ]; then
+    read -e -p "Folder: " folder
+fi
+cd "$folder"
+duration="$2"
+if [ -z "$duration" ]; then
+    read -p "Shutter speed (bulb mode, seconds): " duration
+fi
+gphoto2 --set-config shutterspeed=Bulb --set-config capturetarget=1 --set-config bulb=1 --wait-event=${duration}s --set-config bulb=0 --quiet
+sleep 2
+$this/get-last-photo .

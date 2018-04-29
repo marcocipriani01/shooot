@@ -1,0 +1,20 @@
+#!/bin/bash
+trap close INT
+
+function close() {
+    echo "Interrupted."
+    exit 0
+}
+
+if [ -z "$(which ufraw)" ]; then
+    sudo apt-get install ufraw
+fi
+file="$1"
+if [ -z "$file" ]; then
+    read -e -p "Input file: " file
+fi
+format="$2"
+if [ -z "$format" ]; then
+    read -p "Output format (png|jpeg|jpg|fits|ppm|tif|tiff): " format
+fi
+ufraw-batch --overwrite --compression=100 --out-type=$format $file

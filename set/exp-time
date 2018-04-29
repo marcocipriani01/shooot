@@ -1,0 +1,8 @@
+#!/bin/bash
+value="$1"
+if [ -z "$value" ]; then
+    read -p "Shutter speed (leave empty to ignore): " value
+fi
+if [ -n "$value" ]; then
+    gphoto2 --set-config shutterspeed="$value" --quiet
+fi

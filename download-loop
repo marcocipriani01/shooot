@@ -6,19 +6,19 @@ function close() {
     exit 0
 }
 
-interval=$1
-if [ -z $interval ]; then
-    interval=2
+folder="$1"
+if [ -z "$folder" ]; then
+    read -e -p "Folder: " folder
 fi
-
-if [ ! -z $2 ]; then
-    mkdir $2 2> /dev/null
-    cd $2
+cd "$folder"
+interval="$2"
+if [ -z "$interval" ]; then
+    read -p "Download interval: " interval
 fi
-
-echo "Looped download, interval ${interval}s"
 echo "Press Ctrl-C to stop."
+gphoto2 --get-all-files --keep --skip-existing
+sleep 15
 while true; do
-	gphoto2 --get-all-files --skip-existing
-	sleep $interval
+	gphoto2 --get-all-files --keep --skip-existing
+	sleep "$interval"
 done

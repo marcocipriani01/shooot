@@ -1,0 +1,14 @@
+#!/bin/bash
+reply="1"
+while [ -n "$reply" ]; do
+    reply="$(whiptail --title "Nikon focus" --backtitle "shoot" --ok-button "Continue" --cancel-button "Exit" --inputbox "Focus movement:" 8 50 3>&1 1>&2 2>&3)"
+    if [ -z "$reply" ]; then
+        exit 0
+    else
+        {
+            $(dirname "$0")/move-focus "$reply"
+            echo 100
+
+        } | whiptail --gauge "Moving..." 6 60 50
+    fi
+done

@@ -1,0 +1,8 @@
+#!/bin/bash
+value="$1"
+if [ -z "$value" ]; then
+    read -p "ISO (leave empty to ignore): " value
+fi
+if [ -n "$value" ]; then
+    gphoto2 --set-config iso="$value" --quiet
+fi

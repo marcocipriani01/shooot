@@ -1,10 +1,16 @@
 #!/bin/bash
-lenght="$1"
-if [ -z "$lenght" ]; then
-    read -p "Lenght in seconds: " lenght
+duration="$1"
+if [ -z "$duration" ]; then
+    read -p "Duration in seconds: " duration
 fi
+this="$(realpath $(dirname "$0"))"
+folder="$1"
+if [ -z "$folder" ]; then
+    read -e -p "Folder: " folder
+fi
+cd "$folder"
 echo "Capturing..."
-gphoto2 --set-config movie=1 "--wait-event=${lenght}s" --set-config movie=0
+gphoto2 --set-config movie=1 "--wait-event=${duration}s" --set-config movie=0 --quiet
 echo "Downloading..."
 sleep 1
-$(dirname "$0")/get-last-photo
+$this/get-last-photo .

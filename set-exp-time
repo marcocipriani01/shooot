@@ -1,2 +1,0 @@
-#!/bin/bash
-gphoto2 --set-config shutterspeed="$1"

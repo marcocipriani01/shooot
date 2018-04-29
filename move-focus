@@ -1,0 +1,2 @@
+#!/bin/bash
+gphoto2 --capture-preview --stdout --set-config manualfocusdrive=$1 > /dev/null 2> /dev/null

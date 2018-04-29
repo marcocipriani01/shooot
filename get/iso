@@ -1,0 +1,9 @@
+#!/bin/bash
+opt="$1"
+if [ -z "$opt" ]; then
+    echo "1. Print all the ISO values (N: current, P: possible)"
+    echo "2. Current ISO value"
+    echo "3. All the available ISO values"
+    read -p "Option: " opt
+fi
+python2 $(dirname "$0")/../py/get-iso.py "$opt"

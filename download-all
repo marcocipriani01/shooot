@@ -1,6 +1,7 @@
 #!/bin/bash
-if [ ! -z $1 ]; then
-    mkdir $1 2> /dev/null
-    cd $1
+folder="$1"
+if [ -z "$folder" ]; then
+    read -e -p "Folder: " folder
 fi
-gphoto2 --get-all-files --skip-existing
+cd "$folder"
+gphoto2 --get-all-files --keep --skip-existing

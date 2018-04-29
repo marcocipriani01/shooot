@@ -1,2 +1,0 @@
-#!/bin/bash
-killall gvfsd-gphoto2 gphoto2
