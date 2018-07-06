@@ -22,7 +22,7 @@ if [ "$multi" = "n" ]; then
 else
     proc="$(nproc)"
 fi
-find . -maxdepth 1 -type f -iname "*.nef" -o -iname "*.cr2" -o -iname "*.crw" -o -iname "*.pef" -o -iname "*.arw" -o -iname "*.sr2" -o -iname "*.raw" -o -iname "*.dng" | xargs --max-procs=$proc -L1 ufraw-batch --overwrite --compression=100 --out-type=$format
+find . -maxdepth 1 -type f -iname "*.nef" -o -iname "*.cr2" -o -iname "*.crw" -o -iname "*.pef" -o -iname "*.arw" -o -iname "*.sr2" -o -iname "*.raw" -o -iname "*.dng" | xargs --max-procs=$proc -L1 ufraw-batch --overwrite --out-depth=16 --compression=100 --out-type=$format
 delete="$3"
 if [ -z "$delete" ]; then
     read -p "Delete RAW images? (y/n)? " delete

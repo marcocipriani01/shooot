@@ -17,4 +17,4 @@ format="$2"
 if [ -z "$format" ]; then
     read -p "Output format (png|jpeg|jpg|fits|ppm|tif|tiff): " format
 fi
-ufraw-batch --overwrite --compression=100 --out-type=$format $file
+ufraw-batch --overwrite --compression=100 --out-depth=16 --out-type=$format $file
