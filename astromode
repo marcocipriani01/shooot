@@ -17,7 +17,7 @@ gphoto2 --set-config /main/other/5003="0" --quiet
 gphoto2 --set-config /main/imgsettings/imagesize="0" --quiet
 
 echo "Automatic ISO..."
-gphoto2 --set-config /main/imgsettings/isoauto="1" --quiet
+gphoto2 --set-config /main/other/d16a="1" --quiet
 
 echo "White balance..."
 gphoto2 --set-config /main/imgsettings/whitebalance="0" --quiet
