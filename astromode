@@ -1,0 +1,69 @@
+#!/bin/bash
+echo "SD card settings..."
+gphoto2 --set-config /main/settings/recordingmedia="1" --quiet
+gphoto2 --set-config /main/settings/capturetarget="0" --quiet
+gphoto2 --set-config /main/other/d08a="0" --quiet
+
+echo "Clean sensor..."
+gphoto2 --set-config /main/other/d08f="3" --quiet
+gphoto2 --set-config /main/settings/cleansensor="3" --quiet
+
+echo "Autofocus..."
+gphoto2 --set-config /main/capturesettings/focusmode="0" --quiet
+gphoto2 --set-config /main/capturesettings/focusmode2="3" --quiet
+gphoto2 --set-config /main/settings/autofocus="1" --quiet
+
+echo "Image size..."
+gphoto2 --set-config /main/other/5003="0" --quiet
+gphoto2 --set-config /main/imgsettings/imagesize="0" --quiet
+
+echo "Automatic ISO..."
+gphoto2 --set-config /main/other/d16a="1" --quiet
+gphoto2 --set-config /main/imgsettings/isoauto="1" --quiet
+
+echo "White balance..."
+gphoto2 --set-config /main/imgsettings/whitebalance="0" --quiet
+
+echo "Color space..."
+gphoto2 --set-config /main/other/d032="1" --quiet
+gphoto2 --set-config /main/imgsettings/colorspace="1" --quiet
+
+echo "D-Lighting..."
+gphoto2 --set-config /main/capturesettings/dlighting="1" --quiet
+gphoto2 --set-config /main/other/d14e="0" --quiet
+
+echo "Movie quality..."
+gphoto2 --set-config /main/capturesettings/moviequality="3" --quiet
+gphoto2 --set-config /main/other/d0a0="3" --quiet
+
+echo "Auto dark for long exposures..."
+gphoto2 --set-config /main/capturesettings/longexpnr="1" --quiet
+gphoto2 --set-config d06b="0" --quiet
+
+echo "AF Assist light..."
+gphoto2 --set-config /main/capturesettings/assistlight="1" --quiet
+gphoto2 --set-config /main/other/d163="1" --quiet
+
+echo "Exposure compensation..."
+gphoto2 --set-config /main/capturesettings/exposurecompensation="0" --quiet
+
+echo "Flash mode..."
+gphoto2 --set-config /main/capturesettings/flashmode="1" --quiet
+
+echo "Image quality..."
+gphoto2 --set-config /main/capturesettings/imagequality="3" --quiet
+
+echo "Exposure program..."
+gphoto2 --set-config /main/capturesettings/expprogram="0" --quiet
+
+echo "Capture mode..."
+gphoto2 --set-config /main/capturesettings/capturemode="5" --quiet
+
+echo "Bulb mode..."
+gphoto2 --set-config /main/capturesettings/shutterspeed="Bulb" --quiet
+
+echo "Exposure Bias Compensation..."
+gphoto2 --set-config /main/other/5010="0" --quiet
+
+echo "Picture control..."
+gphoto2 --set-config /main/other/d200="2" --quiet
