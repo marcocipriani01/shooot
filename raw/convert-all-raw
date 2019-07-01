@@ -1,32 +1,38 @@
 #!/bin/bash
-trap close INT
-
-function close() {
-    echo "Interrupted."
-    exit 0
-}
-
-if [ -z "$(which ufraw)" ]; then
-    sudo apt-get install ufraw
-fi
-format="$1"
-if [ -z "$format" ]; then
-    read -p "File output format (png|jpeg|jpg|fits|ppm|tif|tiff): " format
-fi
-multi="$2"
-if [ -z "$multi" ]; then
-    read -p "Enable multi-thread conversion (y/n)?" multi
-fi
-if [ "$multi" = "n" ]; then
-    proc=1
+if [[ -n "$(which darktable)" ]]; then
+  use_drktbl="1"
 else
-    proc="$(nproc)"
+  if [[ -z "$(which ufraw)" ]]; then
+    sudo apt-get -y install ufraw
+  fi
+  use_drktbl="0"
 fi
-find . -maxdepth 1 -type f -iname "*.nef" -o -iname "*.cr2" -o -iname "*.crw" -o -iname "*.pef" -o -iname "*.arw" -o -iname "*.sr2" -o -iname "*.raw" -o -iname "*.dng" | xargs --max-procs=$proc -L1 ufraw-batch --overwrite --out-depth=16 --compression=100 --out-type=$format
+
+format="$1"
+if [[ -z "$format" ]]; then
+  read -p "File output format (png|jpeg|jpg|fits|ppm|tif|tiff): " format
+fi
+
+multi="$2"
+if [[ -z "$multi" ]]; then
+  read -p "Enable multi-thread conversion (y/n)? " multi
+fi
+if [[ "$multi" == "n" ]]; then
+  proc=1
+else
+proc="$(nproc)"
+fi
+
+if [[ "$use_drktbl" == "1" ]]
+  find . -maxdepth 1 -type f -iname "*.nef" -o -iname "*.cr2" -o -iname "*.crw" -o -iname "*.pef" -o -iname "*.arw" -o -iname "*.sr2" -o -iname "*.raw" -o -iname "*.dng" | xargs --max-procs=$proc -I % darktable-cli % "\$(FILE_FOLDER)/\$(FILE_NAME).$format"
+else
+  find . -maxdepth 1 -type f -iname "*.nef" -o -iname "*.cr2" -o -iname "*.crw" -o -iname "*.pef" -o -iname "*.arw" -o -iname "*.sr2" -o -iname "*.raw" -o -iname "*.dng" | xargs --max-procs=$proc -L1 ufraw-batch --overwrite --out-depth=16 --compression=100 --out-type=$format
+fi
+
 delete="$3"
-if [ -z "$delete" ]; then
-    read -p "Delete RAW images? (y/n)? " delete
+if [[ -z "$delete" ]]; then
+  read -p "Delete RAW images (y/n)? " delete
 fi
-if [ "$delete" = "y" ]; then
-    find . -maxdepth 1 -type f -iname "*.nef" -o -iname "*.cr2" -o -iname "*.crw" -o -iname "*.pef" -o -iname "*.arw" -o -iname "*.sr2" -o -iname "*.raw" -o -iname "*.dng" | xargs -L1 rm
+if [[ "$delete" == "y" ]]; then
+  find . -maxdepth 1 -type f -iname "*.nef" -o -iname "*.cr2" -o -iname "*.crw" -o -iname "*.pef" -o -iname "*.arw" -o -iname "*.sr2" -o -iname "*.raw" -o -iname "*.dng" | xargs -L1 rm
 fi

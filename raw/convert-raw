@@ -1,20 +1,25 @@
 #!/bin/bash
-trap close INT
-
-function close() {
-    echo "Interrupted."
-    exit 0
-}
-
-if [ -z "$(which ufraw)" ]; then
-    sudo apt-get install ufraw
+if [[ -n "$(which darktable)" ]]; then
+  use_drktbl="1"
+else
+  if [[ -z "$(which ufraw)" ]]; then
+    sudo apt-get -y install ufraw
+  fi
+  use_drktbl="0"
 fi
+
 file="$1"
-if [ -z "$file" ]; then
+if [[ -z "$file" ]]; then
     read -e -p "Input file: " file
 fi
+
 format="$2"
-if [ -z "$format" ]; then
+if [[ -z "$format" ]]; then
     read -p "Output format (png|jpeg|jpg|fits|ppm|tif|tiff): " format
 fi
-ufraw-batch --overwrite --compression=100 --out-depth=16 --out-type=$format $file
+
+if [[ "$use_drktbl" == "1" ]]
+  darktable-cli "$file" "\$(FILE_FOLDER)/\$(FILE_NAME).$format"
+else
+  ufraw-batch --overwrite --compression=100 --out-depth=16 --out-type=$format $file
+fi
