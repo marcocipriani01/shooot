@@ -1,6 +1,6 @@
 # shooot
 Some gPhoto2 utilities (Linux scrips) to help you control your DSLR from the command line.
-Mainly thought to be used with **Nikon** DSLRs 
+Mainly thought to be used with **Nikon** DSLRs
 
 ## What can I do?
 - Capture single photos and movies (by giving the duration in seconds)
@@ -8,7 +8,7 @@ Mainly thought to be used with **Nikon** DSLRs
 - Download only the latest photo
 - Move the focus point
 - Live view (VLC)
-- Intervalometer mode (shooot and m-shooot). Also in Bulb mode!
+- Intervalometer mode (shooot and m-shooot). **Also in Bulb mode!**
 - Manipulate aperture, ISO, shutter speed, viewfinder, automatic dark setting
 - Get battery level, focal length and image format from the camera
 - Get a summary of all the camera config
