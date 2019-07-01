@@ -9,7 +9,6 @@ gphoto2 --set-config /main/other/d08f="3" --quiet
 gphoto2 --set-config /main/settings/cleansensor="3" --quiet
 
 echo "Autofocus..."
-gphoto2 --set-config /main/capturesettings/focusmode="0" --quiet
 gphoto2 --set-config /main/capturesettings/focusmode2="3" --quiet
 gphoto2 --set-config /main/settings/autofocus="1" --quiet
 
@@ -18,7 +17,6 @@ gphoto2 --set-config /main/other/5003="0" --quiet
 gphoto2 --set-config /main/imgsettings/imagesize="0" --quiet
 
 echo "Automatic ISO..."
-gphoto2 --set-config /main/other/d16a="1" --quiet
 gphoto2 --set-config /main/imgsettings/isoauto="1" --quiet
 
 echo "White balance..."
@@ -52,9 +50,6 @@ gphoto2 --set-config /main/capturesettings/flashmode="1" --quiet
 
 echo "Image quality..."
 gphoto2 --set-config /main/capturesettings/imagequality="3" --quiet
-
-echo "Exposure program..."
-gphoto2 --set-config /main/capturesettings/expprogram="0" --quiet
 
 echo "Capture mode..."
 gphoto2 --set-config /main/capturesettings/capturemode="5" --quiet
